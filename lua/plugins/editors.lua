@@ -8,15 +8,15 @@ return {
   },
 
   -- auto import js
-  {
-    "ludovicchabant/vim-gutentags",
-  },
-  {
-    "kristijanhusak/vim-js-file-import",
-  },
+  -- {
+  --   "ludovicchabant/vim-gutentags",
+  -- },
+  -- {
+  --   "kristijanhusak/vim-js-file-import",
+  -- },
 
   -- auto import php
-  {
-    "arnaud-lb/vim-php-namespace",
-  },
+  -- {
+  --   "arnaud-lb/vim-php-namespace",
+  -- },
 }
