@@ -154,6 +154,8 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "php",
+        "vue",
       },
     },
   },
