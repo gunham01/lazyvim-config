@@ -44,6 +44,23 @@ keymaps.set("n", "<C-j>", function()
   vim.diagnostic.goto_next()
 end)
 
+vim.keymap.set("n", "<leader>rn", function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
+
+function IPhpInsertUse()
+  vim.api.nvim_feedkeys("a", "n", true)
+  vim.api.nvim_command("call PhpInsertUse()")
+end
+
+vim.api.nvim_exec(
+  [[
+    autocmd FileType php inoremap <Leader>\  <Esc>:lua IPhpInsertUse()<CR>
+    autocmd FileType php noremap <Leader>\ :call PhpInsertUse()<CR>
+]],
+  false
+)
+
 -- -- keymaps.set("n", "gD", vim.lsp.buf.declaration, otps)
 --
 -- function _G.set_terminal_keymaps()
