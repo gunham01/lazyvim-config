@@ -18,11 +18,11 @@ keymaps.set("n", "<C-a>", "gg<S-v>G")
 -- JumpList
 keymaps.set("n", "<C-m>", "<C-i>", otps)
 
--- New tab
-keymaps.set("n", "te", ":tabedit", otps)
-keymaps.set("n", "<tab>", ":tabnext<Return>", otps)
-keymaps.set("n", "<s-tab>", ":tabprev<Return>", otps)
-
+-- -- New tab
+-- keymaps.set("n", "te", ":tabedit", otps)
+-- keymaps.set("n", "<tab>", ":tabnext<Return>", otps)
+-- keymaps.set("n", "<s-tab>", ":tabprev<Return>", otps)
+--
 -- Split window
 keymaps.set("n", "ss", ":split<Return>", otps)
 keymaps.set("n", "sv", ":vsplit<Return>", otps)
