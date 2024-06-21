@@ -48,8 +48,8 @@ require("telescope").setup({
 --     },
 --   },
 -- })
-
+vim.g.blamer_enabled = true
 vim.g.NERDTreeShowHidden = 1
 vim.o.mouse = "a"
--- vim.cmd("colorscheme kanagawa")
-vim.cmd("colorscheme solarized-osaka")
+vim.cmd("colorscheme kanagawa")
+--vim.cmd("colorscheme solarized-osaka")
