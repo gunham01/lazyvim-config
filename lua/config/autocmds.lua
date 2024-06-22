@@ -11,6 +11,18 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   pattern = "*.blade.php",
   callback = function()
     vim.bo.filetype = "php"
+    local file_path = vim.fn.expand("<afile>")
+    vim.cmd("!./vendor/bin/pint " .. file_path)
+  end,
+})
+
+-- Autocommand to run ./vendor/bin/pint on save for .blade.php files
+vim.api.nvim_create_autocmd("BufWritePost", {
+  group = augroup,
+  pattern = "*.blade.php",
+  callback = function()
+    local file_path = vim.fn.expand("<afile>")
+    vim.cmd("!./vendor/bin/pint " .. file_path)
   end,
 })
 

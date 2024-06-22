@@ -10,7 +10,6 @@ return {
         async = false, -- not recommended to change
         quiet = false, -- not recommended to change
       },
-      ---@type table<string, conform.FormatterUnit[]>
       formatters_by_ft = {
         lua = { "stylua" },
         fish = { "fish_indent" },
@@ -43,6 +42,23 @@ return {
         -- shfmt = {
         --   extra_args = { "-i", "2", "-ci" },
         -- },
+        ["blade-formatter"] = {
+          command = "blade-formatter",
+          args = {
+            "--write",
+            "$FILENAME",
+            "--wrap-line-length",
+            9999,
+            "--wrap-attributes",
+            "preserve-aligned",
+          },
+          cwd = util.root_file({
+            ".editorconfig",
+            "composer.json",
+            "package.json",
+          }),
+          stdin = false,
+        },
         pint = {
           meta = {
             url = "https://github.com/laravel/pint",

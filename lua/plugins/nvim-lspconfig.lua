@@ -3,23 +3,27 @@ return {
   opts = {
     -- make sure mason installs the server
     servers = {
-      -- phpactor = {
-      --   enabled = lsp == "phpactor",
-      -- },
-      -- intelephense = {
-      --   enabled = lsp == "intelephense",
-      -- },
-      -- [lsp] = {
-      --   enabled = true,
-      -- },
-      -- volar = {
-      --   init_options = {
-      --     vue = {
-      --       hybridMode = false,
-      --     },
-      --   },
-      -- },
-      --
+      intelephense = {
+        settings = {
+          intelephense = {
+            format = {
+              braces = "k&r",
+            },
+          },
+        },
+      },
+      ruff_lsp = {
+        autostart = false,
+      },
+
+      volar = {
+        init_options = {
+          vue = {
+            hybridMode = false,
+          },
+        },
+      },
+
       tsserver = {
         enabled = false,
       },
@@ -33,6 +37,8 @@ return {
           "typescript",
           "typescriptreact",
           "typescript.tsx",
+          "vue",
+          "phpactor",
         },
         settings = {
           complete_function_calls = true,
@@ -168,11 +174,22 @@ return {
                 end
               end)
             end)
+            table.insert(opts.servers.vtsls.filetypes, "vue")
+            LazyVim.extend(opts.servers.vtsls, "settings.vtsls.tsserver.globalPlugins", {
+              {
+                name = "@vue/typescript-plugin",
+                location = LazyVim.get_pkg_path("vue-language-server", "/node_modules/@vue/language-server"),
+                languages = { "vue" },
+                configNamespace = "typescript",
+                enableForWorkspaceTypeScriptVersions = true,
+              },
+            })
           end
         end, "vtsls")
+
         -- copy typescript settings to javascript
         opts.settings.javascript =
-            vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
+          vim.tbl_deep_extend("force", {}, opts.settings.typescript, opts.settings.javascript or {})
       end,
     },
   },
