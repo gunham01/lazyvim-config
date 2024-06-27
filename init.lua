@@ -31,7 +31,7 @@ require("telescope").setup({
     -- please take a look at the readme of the extension you want to configure
   },
 })
-
+require("nvim-web-devicons").refresh()
 -- require("neo-tree").setup({
 --   filesystem = {
 --     filtered_items = {
@@ -51,5 +51,7 @@ require("telescope").setup({
 vim.g.blamer_enabled = true
 vim.g.NERDTreeShowHidden = 1
 vim.o.mouse = "a"
+-- vim.cmd("colorscheme tokyonight")
 vim.cmd("colorscheme kanagawa")
---vim.cmd("colorscheme solarized-osaka")
+-- vim.cmd("colorscheme darcula-dark")
+-- vim.cmd("colorscheme solarized-osaka")

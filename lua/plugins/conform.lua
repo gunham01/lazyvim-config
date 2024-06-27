@@ -1,6 +1,7 @@
 local util = require("conform.util")
 return {
   "stevearc/conform.nvim",
+  event = { "BufReadPre", "BufNewFile" },
   opts = function()
     ---@class ConformOpts
     local opts = {
@@ -26,22 +27,16 @@ return {
         python = { "black" },
         javascript = { "prettierd" },
       },
+      format_on_save = {
+        lsp_fallback = true,
+        async = false,
+        timeout_ms = 1000,
+      },
       -- LazyVim will merge the options you set here with builtin formatters.
       -- You can also define any custom formatters here.
       ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
       formatters = {
         injected = { options = { ignore_errors = true } },
-        -- # Example of using dprint only when a dprint.json file is present
-        -- dprint = {
-        --   condition = function(ctx)
-        --     return vim.fs.find({ "dprint.json" }, { path = ctx.filename, upward = true })[1]
-        --   end,
-        -- },
-        --
-        -- # Example of using shfmt with extra args
-        -- shfmt = {
-        --   extra_args = { "-i", "2", "-ci" },
-        -- },
         ["blade-formatter"] = {
           command = "blade-formatter",
           args = {
