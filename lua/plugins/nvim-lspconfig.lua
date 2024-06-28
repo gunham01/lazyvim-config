@@ -4,13 +4,14 @@ return {
     -- make sure mason installs the server
     servers = {
       intelephense = {
-        settings = {
-          intelephense = {
-            format = {
-              braces = "k&r",
-            },
-          },
-        },
+        enabled = true,
+        -- settings = {
+        --   intelephense = {
+        --     format = {
+        --       braces = "k&r",
+        --     },
+        --   },
+        -- },
       },
       ruff_lsp = {
         autostart = false,
