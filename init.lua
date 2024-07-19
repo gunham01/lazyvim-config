@@ -31,7 +31,6 @@ require("telescope").setup({
     -- please take a look at the readme of the extension you want to configure
   },
 })
-require("nvim-web-devicons").refresh()
 -- require("neo-tree").setup({
 --   filesystem = {
 --     filtered_items = {
@@ -48,10 +47,23 @@ require("nvim-web-devicons").refresh()
 --     },
 --   },
 -- })
+
+local theme = {
+  fill = "TabLineFill",
+  -- Also you can do this: fill = { fg='#f2e9de', bg='#907aa9', style='italic' }
+  head = "TabLine",
+  current_tab = "TabLineSel",
+  tab = "TabLine",
+  win = "TabLine",
+  tail = "TabLine",
+}
+
 vim.g.blamer_enabled = true
 vim.g.NERDTreeShowHidden = 1
 vim.o.mouse = "a"
 -- vim.cmd("colorscheme tokyonight")
+-- vim.cmd("colorscheme rose-pine")
 vim.cmd("colorscheme kanagawa")
+-- vim.cmd("colorscheme nightfox")
 -- vim.cmd("colorscheme darcula-dark")
 -- vim.cmd("colorscheme solarized-osaka")

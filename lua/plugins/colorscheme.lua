@@ -34,4 +34,19 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
+  {
+    "EdenEast/nightfox.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = function()
+      return {
+        transparent = true,
+        styles = {
+          sidebars = "transparent",
+          floats = "transparent",
+        },
+      }
+    end,
+  },
+  { "rose-pine/neovim", name = "rose-pine" },
 }

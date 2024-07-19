@@ -13,9 +13,9 @@ return {
         --   },
         -- },
       },
-      ruff_lsp = {
-        autostart = false,
-      },
+      -- ruff_lsp = {
+      --   autostart = false,
+      -- },
 
       volar = {
         init_options = {
