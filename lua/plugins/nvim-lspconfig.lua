@@ -25,9 +25,6 @@ return {
         },
       },
 
-      tsserver = {
-        enabled = false,
-      },
       vtsls = {
         -- explicitly add default filetypes, so that we can extend
         -- them in related extras
@@ -120,6 +117,14 @@ return {
       },
     },
     setup = {
+      eslint = function()
+        -- disable eslint
+        return true
+      end,
+      cssls = function()
+        -- disable cssls
+        return true
+      end,
       tsserver = function()
         -- disable tsserver
         return true

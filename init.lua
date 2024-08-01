@@ -63,7 +63,8 @@ vim.g.NERDTreeShowHidden = 1
 vim.o.mouse = "a"
 -- vim.cmd("colorscheme tokyonight")
 -- vim.cmd("colorscheme rose-pine")
-vim.cmd("colorscheme kanagawa")
+vim.cmd("colorscheme catppuccin")
+-- vim.cmd("colorscheme kanagawa")
 -- vim.cmd("colorscheme nightfox")
 -- vim.cmd("colorscheme darcula-dark")
 -- vim.cmd("colorscheme solarized-osaka")

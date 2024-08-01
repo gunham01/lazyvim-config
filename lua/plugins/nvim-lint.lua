@@ -4,7 +4,7 @@ return {
   opts = {
     linters_by_ft = {
       -- php = { "pint" },
-      -- php = { "phpcs" },
+      php = { "phpcs" },
     },
   },
 }
