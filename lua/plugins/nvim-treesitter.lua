@@ -49,6 +49,7 @@ return {
       "php",
       "vue",
       "yaml",
+      "prisma",
     },
     incremental_selection = {
       enable = true,
