@@ -5,6 +5,9 @@
 local keymaps = vim.keymap
 local otps = { noremap = true, silent = true }
 
+-- Remap Ctrl-C to Esc in insert mode
+keymaps.set("i", "<C-c>", "<Esc>", otps)
+
 -- Increment/decrement
 keymaps.set("n", "+", "<C-a>")
 keymaps.set("n", "-", "<C-x>")
@@ -17,6 +20,16 @@ keymaps.set("n", "<C-a>", "gg<S-v>G")
 
 -- JumpList
 keymaps.set("n", "<C-m>", "<C-i>", otps)
+
+-- Move line(s)
+keymaps.set("v", "J", ":m '>+1<CR>gv=gv")
+keymaps.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Navigation
+keymaps.set("n", "<C-d>", "<C-d>zz")
+keymaps.set("n", "<C-u>", "<C-u>zz")
+keymaps.set("n", "n", "nzzzv")
+keymaps.set("n", "N", "Nzzzv")
 
 -- -- New tab
 -- keymaps.set("n", "te", ":tabedit", otps)
@@ -33,7 +46,7 @@ keymaps.set("n", "sk", "<C-w>k")
 keymaps.set("n", "sj", "<C-w>j")
 keymaps.set("n", "sl", "<C-w>l")
 
--- Resiz window
+-- Resize window
 keymaps.set("n", "<C-w><left>", "<C-w><")
 keymaps.set("n", "<C-w><right>", "<C-w>>")
 keymaps.set("n", "<C-w><up>", "<C-w>+")
