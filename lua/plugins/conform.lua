@@ -6,7 +6,7 @@ return {
     ---@class ConformOpts
     local opts = {
       -- LazyVim will use these options when formatting with the conform.nvim formatter
-      format = {
+      default_format_opts = {
         timeout_ms = 3000,
         async = false, -- not recommended to change
         quiet = false, -- not recommended to change
@@ -28,11 +28,11 @@ return {
         python = { "black" },
         javascript = { "prettierd" },
       },
-      format_on_save = {
-        lsp_fallback = true,
-        async = false,
-        timeout_ms = 1000,
-      },
+      -- format_on_save = {
+      --   lsp_fallback = true,
+      --   async = false,
+      --   timeout_ms = 1000,
+      -- },
       -- LazyVim will merge the options you set here with builtin formatters.
       -- You can also define any custom formatters here.
       ---@type table<string, conform.FormatterConfigOverride|fun(bufnr: integer): nil|conform.FormatterConfigOverride>
