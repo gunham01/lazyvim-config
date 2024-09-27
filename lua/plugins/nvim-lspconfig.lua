@@ -6,7 +6,9 @@ return {
     },
     -- make sure mason installs the server
     servers = {
-      prisma = {},
+      prismals = {
+        enabled = true,
+      },
       intelephense = {
         enabled = true,
         -- settings = {

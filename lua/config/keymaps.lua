@@ -7,6 +7,7 @@ local otps = { noremap = true, silent = true }
 
 -- Remap Ctrl-C to Esc in insert mode
 keymaps.set("i", "<C-c>", "<Esc>", otps)
+-- keymaps.set("n", "<C-c>", "<Esc>", otps)
 
 -- Increment/decrement
 keymaps.set("n", "+", "<C-a>")

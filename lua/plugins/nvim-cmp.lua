@@ -1,172 +1,137 @@
 return {
-    "hrsh7th/nvim-cmp",
-    version = false, -- last release is way too old
-    event = "InsertEnter",
-    dependencies = {"hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path"},
-    -- Not all LSP servers add brackets when completing a function.
-    -- To better deal with this, LazyVim adds a custom option to cmp,
-    -- that you can configure. For example:
-    --
-    -- ```lua
-    -- opts = {
-    --   auto_brackets = { "python" }
-    -- }
-    -- ```
-    opts = function(_, opts)
-        vim.api.nvim_set_hl(0, "CmpGhostText", {
-            link = "Comment",
-            default = true
-        })
-        local cmp = require("cmp")
-        local defaults = require("cmp.config.default")()
-        local auto_select = true
-        local has_words_before = function()
-            unpack = unpack or table.unpack
-            local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-            return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-        end
+  "hrsh7th/nvim-cmp",
+  version = false, -- last release is way too old
+  event = "InsertEnter",
+  dependencies = { "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path" },
+  -- Not all LSP servers add brackets when completing a function.
+  -- To better deal with this, LazyVim adds a custom option to cmp,
+  -- that you can configure. For example:
+  --
+  -- ```lua
+  -- opts = {
+  --   auto_brackets = { "python" }
+  -- }
+  -- ```
+  opts = function(_, opts)
+    vim.api.nvim_set_hl(0, "CmpGhostText", {
+      link = "Comment",
+      default = true,
+    })
+    local cmp = require("cmp")
+    local defaults = require("cmp.config.default")()
+    local auto_select = true
+    local has_words_before = function()
+      unpack = unpack or table.unpack
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+    end
 
-        -- opts.mapping = vim.tbl_extend("force", opts.mapping, {
-        --   ["<Tab>"] = cmp.mapping(function(fallback)
-        --     if cmp.visible() then
-        --       -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
-        --       cmp.confirm({ select = true })
-        --     elseif vim.snippet.active({ direction = 1 }) then
-        --       vim.schedule(function()
-        --         vim.snippet.jump(1)
-        --       end)
-        --     elseif has_words_before() then
-        --       cmp.complete()
-        --     else
-        --       fallback()
-        --     end
-        --   end, { "i", "s" }),
-        --   ["<S-Tab>"] = cmp.mapping(function(fallback)
-        --     if cmp.visible() then
-        --       cmp.select_prev_item()
-        --     elseif vim.snippet.active({ direction = -1 }) then
-        --       vim.schedule(function()
-        --         vim.snippet.jump(-1)
-        --       end)
-        --     else
-        --       fallback()
-        --     end
-        --   end, { "i", "s" }),
-        --   ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        --   ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        --   ["<C-Space>"] = cmp.mapping.complete(),
-        --   ["<CR>"] = LazyVim.cmp.confirm({
-        --     select = auto_select,
-        --   }),
-        --   ["<C-y>"] = LazyVim.cmp.confirm({
-        --     select = true,
-        --   }),
-        --   ["<S-CR>"] = LazyVim.cmp.confirm({
-        --     behavior = cmp.ConfirmBehavior.Replace,
-        --   }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        --   ["<C-CR>"] = function(fallback)
-        --     cmp.abort()
-        --     fallback()
-        --   end,
-        -- })
+    return {
+      auto_brackets = {}, -- configure any filetype to auto add brackets
+      completion = {
+        completeopt = "menu,menuone,noinsert" .. (auto_select and "" or ",noselect"),
+      },
+      preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
+      mapping = cmp.mapping.preset.insert({
+        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<CR>"] = LazyVim.cmp.confirm({
+          select = auto_select,
+        }),
+        ["<C-y>"] = LazyVim.cmp.confirm({
+          select = true,
+        }),
+        ["<S-CR>"] = LazyVim.cmp.confirm({
+          behavior = cmp.ConfirmBehavior.Replace,
+        }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ["<C-CR>"] = function(fallback)
+          cmp.abort()
+          fallback()
+        end,
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
+            cmp.confirm({
+              select = true,
+            })
+          elseif vim.snippet.active({
+            direction = 1,
+          }) then
+            vim.schedule(function()
+              vim.snippet.jump(1)
+            end)
+          elseif has_words_before() then
+            cmp.complete()
+          else
+            fallback()
+          end
+        end),
+      }),
+      sources = {
+        {
+          name = "nvim_lsp",
+          group_index = 2,
+          priority = 1,
+        },
+        {
+          name = "copilot",
+          group_index = 2,
+          priority = 2,
+        },
+        {
+          name = "path",
+          group_index = 2,
+        },
+        {
+          name = "luasnip",
+          group_index = 2,
+        },
+      },
+      formatting = {
+        format = function(entry, item)
+          local icons = LazyVim.config.icons.kinds
+          if icons[item.kind] then
+            item.kind = icons[item.kind] .. item.kind
+          end
 
-        return {
-            auto_brackets = {}, -- configure any filetype to auto add brackets
-            completion = {
-                completeopt = "menu,menuone,noinsert" .. (auto_select and "" or ",noselect")
-            },
-            preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
-            mapping = cmp.mapping.preset.insert({
-                ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                ["<C-Space>"] = cmp.mapping.complete(),
-                ["<CR>"] = LazyVim.cmp.confirm({
-                    select = auto_select
-                }),
-                ["<C-y>"] = LazyVim.cmp.confirm({
-                    select = true
-                }),
-                ["<S-CR>"] = LazyVim.cmp.confirm({
-                    behavior = cmp.ConfirmBehavior.Replace
-                }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                ["<C-CR>"] = function(fallback)
-                    cmp.abort()
-                    fallback()
-                end,
-                ["<Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
-                        cmp.confirm({
-                            select = true
-                        })
-                    elseif vim.snippet.active({
-                        direction = 1
-                    }) then
-                        vim.schedule(function()
-                            vim.snippet.jump(1)
-                        end)
-                    elseif has_words_before() then
-                        cmp.complete()
-                    else
-                        fallback()
-                    end
-                end)
-            }),
-            sources = { -- Copilot Source
-            {
-                name = "copilot",
-                group_index = 2
-            }, -- Other Sources
-            {
-                name = "nvim_lsp",
-                group_index = 2
-            }, {
-                name = "path",
-                group_index = 2
-            }, {
-                name = "luasnip",
-                group_index = 2
-            }},
-            formatting = {
-                format = function(entry, item)
-                    local icons = LazyVim.config.icons.kinds
-                    if icons[item.kind] then
-                        item.kind = icons[item.kind] .. item.kind
-                    end
+          local widths = {
+            abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
+            menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30,
+          }
 
-                    local widths = {
-                        abbr = vim.g.cmp_widths and vim.g.cmp_widths.abbr or 40,
-                        menu = vim.g.cmp_widths and vim.g.cmp_widths.menu or 30
-                    }
+          for key, width in pairs(widths) do
+            if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
+              item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
+            end
+          end
 
-                    for key, width in pairs(widths) do
-                        if item[key] and vim.fn.strdisplaywidth(item[key]) > width then
-                            item[key] = vim.fn.strcharpart(item[key], 0, width - 1) .. "…"
-                        end
-                    end
-
-                    return item
-                end
-            },
-            experimental = {
-                ghost_text = {
-                    hl_group = "CmpGhostText"
-                }
-            },
-            -- sorting = defaults.sorting,
-            sorting = {
-                priority_weight = 2,
-                comparators = {require("copilot_cmp.comparators").prioritize,
-
-                -- Below is the default comparitor list and order for nvim-cmp
-                               cmp.config.compare.offset,
-                -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-                               cmp.config.compare.exact, cmp.config.compare.score, cmp.config.compare.recently_used,
-                               cmp.config.compare.locality, cmp.config.compare.kind, cmp.config.compare.sort_text,
-                               cmp.config.compare.length, cmp.config.compare.order}
-            }
-        }
-
-    end,
-    main = "lazyvim.util.cmp"
+          return item
+        end,
+      },
+      experimental = {
+        ghost_text = {
+          hl_group = "CmpGhostText",
+        },
+      },
+      -- sorting = defaults.sorting,
+      sorting = {
+        priority_weight = 2,
+        comparators = {
+          cmp.config.compare.exact,
+          -- require("copilot_cmp.comparators").prioritize,
+          cmp.config.compare.offset,
+          -- cmp.config.compare.scopes,
+          cmp.config.compare.score,
+          cmp.config.compare.recently_used,
+          cmp.config.compare.locality,
+          cmp.config.compare.kind,
+          cmp.config.compare.sort_text,
+          cmp.config.compare.length,
+          cmp.config.compare.order,
+        },
+      },
+    }
+  end,
+  main = "lazyvim.util.cmp",
 }

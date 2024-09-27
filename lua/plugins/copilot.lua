@@ -7,10 +7,11 @@ return {
   --   require("copilot").setup({})
   -- end,
   opts = {
-    suggestion = { 
+    suggestion = {
       enabled = false,
+      auto_trigger = true,
     },
-    panel = { 
+    panel = {
       enabled = false,
     },
     filetypes = {
@@ -19,4 +20,3 @@ return {
     },
   },
 }
-

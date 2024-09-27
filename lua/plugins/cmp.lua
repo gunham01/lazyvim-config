@@ -4,7 +4,9 @@ return {
     {
       "zbirenbaum/copilot-cmp",
       dependencies = "copilot.lua",
-      opts = {},
+      opts = {
+        fix_pairs = true,
+      },
       config = function(_, opts)
         local copilot_cmp = require("copilot_cmp")
         copilot_cmp.setup(opts)
@@ -17,13 +19,13 @@ return {
     },
   },
   --@param opts cmp.ConfigSchema
-  opts = function(_, opts)
-    table.insert(opts.sources, 1, {
-      name = "copilot",
-      group_index = 1,
-      priority = 100,
-    })
-  end,
+  -- opts = function(_, opts)
+  --   table.insert(opts.sources, 1, {
+  --     name = "copilot",
+  --     group_index = 1,
+  --     priority = 100,
+  --   })
+  -- end,
 --   dependencies = {
 --     codeium
 --     {
