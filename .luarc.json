@@ -1,10 +1,4 @@
 {
-    "diagnostics.globals": [
-        "LazyVim",
-        "lsp",
-        "vim"
-    ],
-    "diagnostics.disable": [
-        "assign-type-mismatch"
-    ]
+  "diagnostics.globals": ["LazyVim", "lsp", "vim"],
+  "diagnostics.disable": ["assign-type-mismatch"]
 }

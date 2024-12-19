@@ -13,9 +13,6 @@ keymaps.set("i", "<C-c>", "<Esc>", otps)
 keymaps.set("n", "+", "<C-a>")
 keymaps.set("n", "-", "<C-x>")
 
--- Delete a word
-keymaps.set("n", "dw", "vb_d")
-
 -- SelectAll
 keymaps.set("n", "<C-a>", "gg<S-v>G")
 
@@ -29,6 +26,8 @@ keymaps.set("v", "K", ":m '<-2<CR>gv=gv")
 -- Navigation
 keymaps.set("n", "<C-d>", "<C-d>zz")
 keymaps.set("n", "<C-u>", "<C-u>zz")
+keymaps.set("n", "<C-f>", "<C-f>zz")
+keymaps.set("n", "<C-b>", "<C-b>zz")
 keymaps.set("n", "n", "nzzzv")
 keymaps.set("n", "N", "Nzzzv")
 
