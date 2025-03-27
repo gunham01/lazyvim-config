@@ -2,7 +2,7 @@
 lua require('minhlh.settinglua')
 
 set mouse=a  "enable mouse
-
+       
 " au CursorHold,CursorHoldI * checktime
 " au FocusGained,BufEnter * :checktime
 " autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *

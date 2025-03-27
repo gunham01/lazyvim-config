@@ -9,7 +9,7 @@ local grep_picker = {
 return {
   {
     "nvim-telescope/telescope.nvim",
-    lazy = true,
+    -- lazy = true,
     opts = {
       -- theme = "vscode", -- custom field
       defaults = {

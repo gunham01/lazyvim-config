@@ -4,5 +4,7 @@
 vim.g.lazyvim_php_lsp = "intelephense"
 vim.g.snacks_animate = false
 vim.g.lazyvim_cmp = "nvim-cmp"
+vim.g.autoformat = false
 local opt = vim.opt
 opt.shiftwidth = 4
+
